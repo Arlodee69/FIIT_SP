@@ -38,3 +38,10 @@ cmake-build-*
 
 # cmake-build-debug directory
 cmake-build-debug/
+
+# Build directories
+build/
+Build/
+_build/
+bin/
+out/
