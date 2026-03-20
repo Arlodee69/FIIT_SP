@@ -3,7 +3,6 @@
 
 #include <allocator_dbg_helper.h>
 #include <pp_allocator.h>
-#include <mutex>
 
 class allocator_global_heap final:
     private allocator_dbg_helper,
@@ -13,7 +12,6 @@ class allocator_global_heap final:
 private:
 
     static constexpr const size_t size_t_size = sizeof(size_t);
-    mutable std::mutex _lock;
     
 public:
     
