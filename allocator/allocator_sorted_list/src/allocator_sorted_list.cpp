@@ -120,12 +120,12 @@ allocator_sorted_list::allocator_sorted_list(
                 best_curr = curr;
                 best_prev = prev;
                 break;
-            } else if (data->mode == allocator_with_fit_mode::fit_mode::the_best_fit) {
+            } else if (data->mode == allocator_with_fit_mode::fit_mode::the_best_fit) { //самый маленький из подходящих
                 if (best_curr == nullptr || curr->block_size < best_curr->block_size) {
                     best_curr = curr;
                     best_prev = prev;
                 }
-            } else if (data->mode == allocator_with_fit_mode::fit_mode::the_worst_fit) {
+            } else if (data->mode == allocator_with_fit_mode::fit_mode::the_worst_fit) { //самый большой из подходящих
                 if (best_curr == nullptr || curr->block_size > best_curr->block_size) {
                     best_curr = curr;
                     best_prev = prev;
@@ -211,7 +211,7 @@ void allocator_sorted_list::do_deallocate_sm(
     block_header* block_to_free = reinterpret_cast<block_header*>(reinterpret_cast<char*>(at) - sizeof(block_header));
 
     if (block_to_free->next_block != _trusted_memory) {
-        throw std::logic_error("Попытка освободить чужую память или уже свободный блок");
+        throw std::logic_error("Попытка освободить свободный блок или чужую память");
     }
 
     block_header* prev = nullptr;
@@ -417,3 +417,4 @@ bool allocator_sorted_list::sorted_iterator::occupied() const noexcept
 {
     return reinterpret_cast<block_header*>(_current_ptr)->next_block == _trusted_memory;
 }
+
